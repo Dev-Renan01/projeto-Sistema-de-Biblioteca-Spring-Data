@@ -30,8 +30,8 @@ public class TesteProjeto {
 		
 		Autor autor = new Autor();
 		
-		autor.setNome("Suany da silva");
-		autor.setNacionalidade("Argentina");
+		autor.setNome("Reginaldo de Alencar");
+		autor.setNacionalidade("Brasileiro");
 		
 		autorRepository.save(autor);
 		
@@ -40,7 +40,7 @@ public class TesteProjeto {
 	}
 	
 	@Test
-	public void testListarAutores() {
+	public void testeListarAutores() {
 		
 		Iterable<Autor> autor = autorRepository.findAll();
 		
@@ -87,10 +87,14 @@ public class TesteProjeto {
 	@Test
 	public void testeSalvarLivro() {
 		
+		Optional<Autor> autor = autorRepository.findById(2L);
+		
 		Livro livro = new Livro();
 		
-		livro.setTitulo("Alma encantada");
-		livro.setAnoPublicado(2000);
+		
+		livro.setTitulo("O Drama");
+		livro.setAnoPublicado(2023);
+		livro.setAutor(autor.get());
 		
 		livroRepository.save(livro);
 		
@@ -99,7 +103,7 @@ public class TesteProjeto {
 	}
 	
 	@Test
-	public void testListarLivros() {
+	public void testeListarLivros() {
 		
 		Iterable<Livro> livro = livroRepository.findAll();
 		
@@ -108,6 +112,7 @@ public class TesteProjeto {
 		System.out.println("Id -> " + l.getId());
 		System.out.println("Nome -> " + l.getTitulo());
 		System.out.println("Nacionalidade -> " + l.getAnoPublicado());
+		System.out.println(l.getAutor());
 		System.out.println("------------------------------------");
 
 		}
@@ -121,8 +126,8 @@ public class TesteProjeto {
 		System.out.println("Nome atual: " + livro.get().getTitulo());
 		System.out.println("Nacionalidade atual: " + livro.get().getAnoPublicado());
 
-		livro.get().setTitulo("Alma encantada");
-		livro.get().setAnoPublicado(2001);
+		livro.get().setTitulo("Algoritimos computacionais");
+		livro.get().setAnoPublicado(2020);
 		
 		System.out.println("------------------------------------");
 
@@ -134,7 +139,9 @@ public class TesteProjeto {
 	@Test
 	public void testeDeletarlivro() {
 		
-		autorRepository.deleteById(1L);
+		Optional<Livro> livro = livroRepository.findById(1L);
+		
+		livroRepository.delete(livro.get());
 		
 		System.out.println("Deletado com sucesso!");
 	}

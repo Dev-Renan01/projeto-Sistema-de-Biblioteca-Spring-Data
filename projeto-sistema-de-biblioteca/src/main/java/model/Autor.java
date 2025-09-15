@@ -1,9 +1,12 @@
 package model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Autor {
@@ -14,6 +17,9 @@ public class Autor {
 	
 	private String nome;
 	private String nacionalidade;
+	
+	@OneToMany(mappedBy = "autor", orphanRemoval = true)
+	private List<Livro> livros;
 
 	public Long getId() {
 		return id;
@@ -25,6 +31,14 @@ public class Autor {
 
 	public String getNome() {
 		return nome;
+	}
+
+	public List<Livro> getLivros() {
+		return livros;
+	}
+
+	public void setLivros(List<Livro> livros) {
+		this.livros = livros;
 	}
 
 	public void setNome(String nome) {
@@ -41,7 +55,7 @@ public class Autor {
 
 	@Override
 	public String toString() {
-		return "Autor [id = " + id + ", nome = " + nome + ", nacionalidade = " + nacionalidade + "]";
+		return "Autor [id=" + id + ", nome=" + nome + ", nacionalidade=" + nacionalidade + ", livros=" + livros + "]";
 	}
 	
 	
