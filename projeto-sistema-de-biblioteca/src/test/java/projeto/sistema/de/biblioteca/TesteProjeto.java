@@ -1,5 +1,6 @@
 package projeto.sistema.de.biblioteca;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import dao.AutorRepository;
 import dao.LivroRepository;
+import jakarta.transaction.Transactional;
 import model.Autor;
 import model.Livro;
 
@@ -23,7 +25,19 @@ public class TesteProjeto {
 	
 	@Autowired
 	private LivroRepository livroRepository;
-	
+	 
+	@Test
+	@Transactional
+	public void testeBuscarPorNome() {
+		
+		Autor autor = autorRepository.findByNome("Suany da silva");
+		
+		System.out.println("------- Dados do Autor -------");
+		System.out.println("Nome: " + autor.getNome());
+		System.out.println("nacionalidade: " + autor.getNacionalidade());
+		System.out.println("Nome: " + autor.getLivros());
+		
+	}
 		
 	@Test
 	public void testeSalvarAutor() {
@@ -146,8 +160,18 @@ public class TesteProjeto {
 		System.out.println("Deletado com sucesso!");
 	}
 	
-	
-	
-	
-	
+	@Test
+	@Transactional
+	public void testeBuscarLivroPorAutor() {
+		
+		List<Livro> livro = livroRepository.findByAutorNome("Suany da silva");
+		
+		for(Livro l : livro ) {
+			
+			//System.out.println("------- Dados do Autor -------");
+			System.out.println("Nome: " + l.getTitulo());
+			System.out.println("nacionalidade: " + l.getAnoPublicado());
+			System.out.println("Nome: " + l.getAutor());
+		}	
+	}
 }
