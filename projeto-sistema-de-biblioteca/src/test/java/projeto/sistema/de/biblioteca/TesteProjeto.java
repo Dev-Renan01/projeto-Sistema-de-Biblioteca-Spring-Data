@@ -1,5 +1,7 @@
 package projeto.sistema.de.biblioteca;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,8 @@ public class TesteProjeto {
 		
 		Autor autor = new Autor();
 		
-		autor.setNome("Thiago de Souza");
-		autor.setNacionalidade("Brasileiro");
+		autor.setNome("Suany da silva");
+		autor.setNacionalidade("Argentina");
 		
 		autorRepository.save(autor);
 		
@@ -49,6 +51,39 @@ public class TesteProjeto {
 		System.out.println("------------------------------------");
 
 		}
+	}
+	
+	@Test
+	public void testeAutualizarAutor() {
+		
+		Optional<Autor> autor = autorRepository.findById(2L);
+	
+		System.out.println("Nome atual: " + autor.get().getNome());
+		System.out.println("Nacionalidade atual: " + autor.get().getNacionalidade());
+
+		autor.get().setNome("Suany Vieira");
+		autor.get().setNacionalidade("Brasileira");
+		
+		System.out.println("------------------------------------");
+
+		System.out.println("Nome atualizado: " + autor.get().getNome());
+		System.out.println("Nacionalidade atualizado: " + autor.get().getNacionalidade());
 
 	}
+	
+	@Test
+	public void testeDeletarAutor() {
+		
+		autorRepository.deleteById(1L);
+		
+		System.out.println("Deletado com sucesso!");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
